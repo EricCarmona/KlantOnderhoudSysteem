@@ -136,88 +136,89 @@
         </div>
     </div>
 
-        <div class="dashboard">
-            <header class="dashboard-header">
-                <div class="header-container">
-                    <div class="header-title">
-                        <h1>Admin Dashboard</h1>
-                        <p>Beheer alle klanten en onderhoud</p>
-                    </div>
-                    <div class="header-actions">
-                        <button class="btn btn-outline" id="admin-logout">
-                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
-                            </svg>
-                            <span>Uitloggen</span>
-                        </button>
-                    </div>
+    <div class="dashboard">
+        <header class="dashboard-header">
+            <div class="header-container">
+                <div class="header-title">
+                    <h1>Admin Dashboard</h1>
+                    <p>Beheer alle klanten en onderhoud</p>
                 </div>
-            </header>
-
-            <main class="dashboard-main">
-                <div class="stats-grid">
-                    <div class="card stat-card">
-                        <div class="card-header">
-                            <p class="card-description">Totaal Klanten</p>
-                            <h2 class="card-title" id="stat-total"></h2>
-                        </div>
-                    </div>
-                    
-                    <div class="card stat-card">
-                        <div class="card-header">
-                            <p class="card-description">Gepland Onderhoud</p>
-                            <h2 class="card-title" id="stat-urgent"></h2>
-                        </div>
-                    </div>
-                    
-                    <div class="card stat-card">
-                        <div class="card-header">
-                            <p class="card-description">Laatste 30 Dagen</p>
-                            <h2 class="card-title" id="stat-recent"></h2>
-                        </div>
-                    </div>
+                <div class="header-actions">
+                    <button class="btn btnJ-outline" id="admin-logout">
+                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+                        </svg>
+                        <span>Uitloggen</span>
+                    </button>
                 </div>
+            </div>
+        </header>
 
-                <div class="card">
+        <main class="dashboard-main">
+            <div class="stats-grid">
+                <div class="card stat-card">
                     <div class="card-header">
-                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-                            <div>
-                                <h2 class="card-title">Klanten Overzicht</h2>
-                                <p class="card-description">Alle geregistreerde klanten en hun onderhoudsstatus</p>
-                            </div>
-                            <div class="search-container">
-                                <svg class="search-icon icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="11" cy="11" r="8"/>
-                                    <path d="m21 21-4.35-4.35"/>
-                                </svg>
-                                <input type="text" class="form-input search-input" id="customer-search" placeholder="Zoek klanten..." />
-                            </div>
-                        </div>
+                        <p class="card-description">Totaal Klanten</p>
+                        <h2 class="card-title" id="stat-total"></h2>
                     </div>
-                    <div class="card-content">
-                        <div class="table-container">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Klant ID</th>
-                                        <th>Naam</th>
-                                        <th>Contact</th>
-                                        <th>Laatste Onderhoud</th>
-                                        <th>Volgend Onderhoud</th>
-                                        <th>Status</th>
-                                        <th class="text-right">Acties</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="customers-table-body"></tbody>
-                            </table>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="card-header">
+                        <p class="card-description">Gepland Onderhoud</p>
+                        <h2 class="card-title" id="stat-urgent"></h2>
+                    </div>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="card-header">
+                        <p class="card-description">Laatste 30 Dagen</p>
+                        <h2 class="card-title" id="stat-recent"></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div
+                        style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h2 class="card-title">Klanten Overzicht</h2>
+                            <p class="card-description">Alle geregistreerde klanten en hun onderhoudsstatus</p>
+                        </div>
+                        <div class="search-container">
+                            <svg class="search-icon icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.35-4.35" />
+                            </svg>
+                            <input type="text" class="form-input search-input" id="customer-search"
+                                placeholder="Zoek klanten..." />
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
-    
-
-
+                <div class="card-content">
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Klant ID</th>
+                                    <th>Naam</th>
+                                    <th>Contact</th>
+                                    <th>Laatste Onderhoud</th>
+                                    <th>Volgend Onderhoud</th>
+                                    <th>Status</th>
+                                    <th class="text-right">Acties</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customers-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
 </body>
 
