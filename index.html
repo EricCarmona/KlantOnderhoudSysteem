@@ -7,14 +7,25 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Main App Container -->
+    <div id="app"></div>
+    
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
 
-    <div class="landing-page">
-        <div class="landing-container">
-            <div class="welcome-section">
-                <div class="icon-container" id="landing-icon"></div>
-                <h1>KlantOnderhoudSysteem</h1>
-                <p>Welkom bij uw onderhoudsportaal</p>
-            </div>
+    <!-- ============================================ -->
+    <!-- TEMPLATES -->
+    <!-- ============================================ -->
+
+    <!-- Landing Page Template -->
+    <template id="landing-template">
+        <div class="landing-page">
+            <div class="landing-container">
+                <div class="welcome-section">
+                    <div class="icon-container" id="landing-icon"></div>
+                    <h1>KlantOnderhoudSysteem</h1>
+                    <p>Welkom bij uw onderhoudsportaal</p>
+                </div>
 
                 <div class="tabs">
                     <div class="tabs-list">
@@ -134,7 +145,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </template>
 
     <!-- Admin Dashboard Template -->
     <template id="admin-dashboard-template">
