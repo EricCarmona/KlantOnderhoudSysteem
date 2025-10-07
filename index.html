@@ -1,415 +1,390 @@
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KlantOnderhoudSysteem</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+    <!-- Main App Container -->
+    <div id="app"></div>
+    
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
 
     <!-- Landing Page Template -->
-    <div class="landing-page">
-        <div class="landing-container">
-            <div class="welcome-section">
-                <div class="icon-container" id="landing-icon"></div>
-                <h1>KlantOnderhoudSysteem</h1>
-                <p>Welkom bij uw onderhoudsportaal</p>
-            </div>
-
-            <div class="tabs">
-                <div class="tabs-list">
-                    <button class="tabs-trigger" data-tab="login">Inloggen</button>
-                    <button class="tabs-trigger" data-tab="register">Registreren</button>
+    <template id="landing-template">
+        <div class="landing-page">
+            <div class="landing-container">
+                <div class="welcome-section">
+                    <div class="icon-container" id="landing-icon"></div>
+                    <h1>KlantOnderhoudSysteem</h1>
+                    <p>Welkom bij uw onderhoudsportaal</p>
                 </div>
 
-                <!-- Login Tab Content -->
-                <div class="tabs-content" data-tab-content="login">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Inloggen</h2>
-                            <p class="card-description">Voer uw inloggegevens in om toegang te krijgen</p>
-                        </div>
-                        <div class="card-content">
-                            <form id="login-form">
-                                <div class="form-group">
-                                    <label class="form-label" for="username">Gebruikersnaam</label>
-                                    <input class="form-input" type="text" id="username"
-                                        placeholder="Voer gebruikersnaam in" required />
+                <div class="tabs">
+                    <div class="tabs-list">
+                        <button class="tabs-trigger" data-tab="login">Inloggen</button>
+                        <button class="tabs-trigger" data-tab="register">Registreren</button>
+                    </div>
+
+                    <!-- Login Tab Content -->
+                    <div class="tabs-content" data-tab-content="login">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Inloggen</h2>
+                                <p class="card-description">Voer uw inloggegevens in om toegang te krijgen</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="login-form">
+                                    <div class="form-group">
+                                        <label class="form-label" for="username">Gebruikersnaam</label>
+                                        <input class="form-input" type="text" id="username" placeholder="Voer gebruikersnaam in" required />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="password">Wachtwoord</label>
+                                        <input class="form-input" type="password" id="password" placeholder="Voer wachtwoord in" required />
+                                    </div>
+
+                                    <div id="login-error" class="error-message hidden"></div>
+
+                                    <button type="submit" class="btn btn-primary btn-full">Inloggen</button>
+                                </form>
+
+                                <div class="demo-credentials">
+                                    <p>Demo inloggegevens:</p>
+                                    <div class="demo-item"><span>Admin:</span> admin / admin123</div>
+                                    <div class="demo-item"><span>Klant:</span> janssen / customer123</div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="password">Wachtwoord</label>
-                                    <input class="form-input" type="password" id="password"
-                                        placeholder="Voer wachtwoord in" required />
-                                </div>
-
-                                <div id="login-error" class="error-message hidden"></div>
-
-                                <button type="submit" class="btn btn-primary btn-full">Inloggen</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Register Tab Content -->
-                <div class="tabs-content" data-tab-content="register">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Nieuwe Klant Registreren</h2>
-                            <p class="card-description">Maak een account aan om uw onderhoudsgegevens te beheren</p>
-                        </div>
-                        <div class="card-content">
-                            <form id="register-form">
-                                <div class="form-group">
-                                    <label class="form-label" for="reg-name">Volledige Naam *</label>
-                                    <input class="form-input" type="text" id="reg-name"
-                                        placeholder="bijv. Jan Janssen" />
-                                    <div class="form-error" data-error="name"></div>
-                                </div>
-
-                                <div class="form-grid form-grid-2">
+                    <!-- Register Tab Content -->
+                    <div class="tabs-content" data-tab-content="register">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Nieuwe Klant Registreren</h2>
+                                <p class="card-description">Maak een account aan om uw onderhoudsgegevens te beheren</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="register-form">
                                     <div class="form-group">
-                                        <label class="form-label" for="reg-email">Email *</label>
-                                        <input class="form-input" type="email" id="reg-email"
-                                            placeholder="voorbeeld@email.nl" />
-                                        <div class="form-error" data-error="email"></div>
+                                        <label class="form-label" for="reg-name">Volledige Naam *</label>
+                                        <input class="form-input" type="text" id="reg-name" placeholder="bijv. Jan Janssen" />
+                                        <div class="form-error" data-error="name"></div>
+                                    </div>
+
+                                    <div class="form-grid form-grid-2">
+                                        <div class="form-group">
+                                            <label class="form-label" for="reg-email">Email *</label>
+                                            <input class="form-input" type="email" id="reg-email" placeholder="voorbeeld@email.nl" />
+                                            <div class="form-error" data-error="email"></div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label" for="reg-phone">Telefoonnummer *</label>
+                                            <input class="form-input" type="tel" id="reg-phone" placeholder="+31 6 1234 5678" />
+                                            <div class="form-error" data-error="phone"></div>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label" for="reg-phone">Telefoonnummer *</label>
-                                        <input class="form-input" type="tel" id="reg-phone"
-                                            placeholder="+31 6 1234 5678" />
-                                        <div class="form-error" data-error="phone"></div>
+                                        <label class="form-label" for="reg-address">Adres *</label>
+                                        <input class="form-input" type="text" id="reg-address" placeholder="Straatnaam 123, 1234 AB Stad" />
+                                        <div class="form-error" data-error="address"></div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="form-label" for="reg-address">Adres *</label>
-                                    <input class="form-input" type="text" id="reg-address"
-                                        placeholder="Straatnaam 123, 1234 AB Stad" />
-                                    <div class="form-error" data-error="address"></div>
-                                </div>
-
-                                <div class="separator"></div>
-                                <p style="color: var(--muted-foreground); margin-bottom: 1rem;">Accountgegevens</p>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="reg-username">Gebruikersnaam *</label>
-                                    <input class="form-input" type="text" id="reg-username"
-                                        placeholder="Kies een gebruikersnaam" />
-                                    <div class="form-error" data-error="username"></div>
-                                </div>
-
-                                <div class="form-grid form-grid-2">
-                                    <div class="form-group">
-                                        <label class="form-label" for="reg-password">Wachtwoord *</label>
-                                        <input class="form-input" type="password" id="reg-password"
-                                            placeholder="Min. 6 tekens" />
-                                        <div class="form-error" data-error="password"></div>
-                                    </div>
+                                    <div class="separator"></div>
+                                    <p style="color: var(--muted-foreground); margin-bottom: 1rem;">Accountgegevens</p>
 
                                     <div class="form-group">
-                                        <label class="form-label" for="reg-confirm">Bevestig Wachtwoord *</label>
-                                        <input class="form-input" type="password" id="reg-confirm"
-                                            placeholder="Herhaal wachtwoord" />
-                                        <div class="form-error" data-error="confirmPassword"></div>
+                                        <label class="form-label" for="reg-username">Gebruikersnaam *</label>
+                                        <input class="form-input" type="text" id="reg-username" placeholder="Kies een gebruikersnaam" />
+                                        <div class="form-error" data-error="username"></div>
                                     </div>
-                                </div>
 
-                                <button type="submit" class="btn btn-primary btn-full">
-                                    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                        <circle cx="8.5" cy="7" r="4" />
-                                        <line x1="20" y1="8" x2="20" y2="14" />
-                                        <line x1="23" y1="11" x2="17" y2="11" />
-                                    </svg>
-                                    <span>Account Aanmaken</span>
-                                </button>
-                            </form>
+                                    <div class="form-grid form-grid-2">
+                                        <div class="form-group">
+                                            <label class="form-label" for="reg-password">Wachtwoord *</label>
+                                            <input class="form-input" type="password" id="reg-password" placeholder="Min. 6 tekens" />
+                                            <div class="form-error" data-error="password"></div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label" for="reg-confirm">Bevestig Wachtwoord *</label>
+                                            <input class="form-input" type="password" id="reg-confirm" placeholder="Herhaal wachtwoord" />
+                                            <div class="form-error" data-error="confirmPassword"></div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-full">
+                                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="8.5" cy="7" r="4"/>
+                                            <line x1="20" y1="8" x2="20" y2="14"/>
+                                            <line x1="23" y1="11" x2="17" y2="11"/>
+                                        </svg>
+                                        <span>Account Aanmaken</span>
+                                    </button>
+                                </form>
+
+                                <div class="switch-link">
+                                    <p>Heeft u al een account?</p>
+                                    <button class="btn btn-outline btn-full" data-switch-tab="login">Terug naar Inloggen</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </template>
 
-    <div class="dashboard">
-        <header class="dashboard-header">
-            <div class="header-container">
-                <div class="header-title">
-                    <h1>Admin Dashboard</h1>
-                    <p>Beheer alle klanten en onderhoud</p>
+    <!-- Admin Dashboard Template -->
+    <template id="admin-dashboard-template">
+        <div class="dashboard">
+            <header class="dashboard-header">
+                <div class="header-container">
+                    <div class="header-title">
+                        <h1>Admin Dashboard</h1>
+                        <p>Beheer alle klanten en onderhoud</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-outline" id="admin-logout">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+                            </svg>
+                            <span>Uitloggen</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="header-actions">
-                    <button class="btn btn-outline" id="admin-logout">
-                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+            </header>
+
+            <main class="dashboard-main">
+                <div class="stats-grid">
+                    <div class="card stat-card">
+                        <div class="card-header">
+                            <p class="card-description">Totaal Klanten</p>
+                            <h2 class="card-title" id="stat-total"></h2>
+                        </div>
+                    </div>
+                    
+                    <div class="card stat-card">
+                        <div class="card-header">
+                            <p class="card-description">Gepland Onderhoud</p>
+                            <h2 class="card-title" id="stat-urgent"></h2>
+                        </div>
+                    </div>
+                    
+                    <div class="card stat-card">
+                        <div class="card-header">
+                            <p class="card-description">Laatste 30 Dagen</p>
+                            <h2 class="card-title" id="stat-recent"></h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <h2 class="card-title">Klanten Overzicht</h2>
+                                <p class="card-description">Alle geregistreerde klanten en hun onderhoudsstatus</p>
+                            </div>
+                            <div class="search-container">
+                                <svg class="search-icon icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.35-4.35"/>
+                                </svg>
+                                <input type="text" class="form-input search-input" id="customer-search" placeholder="Zoek klanten..." />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Klant ID</th>
+                                        <th>Naam</th>
+                                        <th>Contact</th>
+                                        <th>Laatste Onderhoud</th>
+                                        <th>Volgend Onderhoud</th>
+                                        <th>Status</th>
+                                        <th class="text-right">Acties</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customers-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </template>
+
+    <!-- Customer Dashboard Template -->
+    <template id="customer-dashboard-template">
+        <div class="dashboard">
+            <header class="dashboard-header">
+                <div class="header-container">
+                    <div class="header-actions" style="gap: 1rem; flex: 1;">
+                        <button class="btn btn-ghost btn-sm hidden" id="back-button">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="19" y1="12" x2="5" y2="12"/>
+                                <polyline points="12 19 5 12 12 5"/>
+                            </svg>
+                            <span>Terug</span>
+                        </button>
+                        <div class="header-title">
+                            <h1 id="customer-header-title"></h1>
+                            <p>Onderhoudsinformatie en geschiedenis</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline" id="customer-logout">
+                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
                         </svg>
                         <span>Uitloggen</span>
                     </button>
                 </div>
-            </div>
-        </header>
+            </header>
 
-        <main class="dashboard-main">
-            <div class="stats-grid">
-                <div class="card stat-card">
-                    <div class="card-header">
-                        <p class="card-description">Totaal Klanten</p>
-                        <h2 class="card-title" id="stat-total"></h2>
-                    </div>
-                </div>
-
-                <div class="card stat-card">
-                    <div class="card-header">
-                        <p class="card-description">Gepland Onderhoud</p>
-                        <h2 class="card-title" id="stat-urgent"></h2>
-                    </div>
-                </div>
-
-                <div class="card stat-card">
-                    <div class="card-header">
-                        <p class="card-description">Laatste 30 Dagen</p>
-                        <h2 class="card-title" id="stat-recent"></h2>
-                    </div>
-                </div>
-            </div>
-        <main class="dashboard-main">
-            <div class="stats-grid">
-                <div class="card stat-card">
-                    <div class="card-header">
-                        <p class="card-description">Totaal Klanten</p>
-                        <h2 class="card-title" id="stat-total"></h2>
-                    </div>
-                </div>
-
-                <div class="card stat-card">
-                    <div class="card-header">
-                        <p class="card-description">Gepland Onderhoud</p>
-                        <h2 class="card-title" id="stat-urgent"></h2>
-                    </div>
-                </div>
-
-                <div class="card stat-card">
-                    <div class="card-header">
-                        <p class="card-description">Laatste 30 Dagen</p>
-                        <h2 class="card-title" id="stat-recent"></h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div
-                        style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-                        <div>
-                            <h2 class="card-title">Klanten Overzicht</h2>
-                            <p class="card-description">Alle geregistreerde klanten en hun onderhoudsstatus</p>
-                        </div>
-                        <div class="search-container">
-                            <svg class="search-icon icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8" />
-                                <path d="m21 21-4.35-4.35" />
-                            </svg>
-                            <input type="text" class="form-input search-input" id="customer-search"
-                                placeholder="Zoek klanten..." />
-                        </div>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Klant ID</th>
-                                    <th>Naam</th>
-                                    <th>Contact</th>
-                                    <th>Laatste Onderhoud</th>
-                                    <th>Volgend Onderhoud</th>
-                                    <th>Status</th>
-                                    <th class="text-right">Acties</th>
-                                </tr>
-                            </thead>
-                            <tbody id="customers-table-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <div class="dashboard">
-        <header class="dashboard-header">
-            <div class="header-container">
-                <div class="header-actions" style="gap: 1rem; flex: 1;">
-                    <button class="btn btn-ghost btn-sm hidden" id="back-button">
-                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <line x1="19" y1="12" x2="5" y2="12" />
-                            <polyline points="12 19 5 12 12 5" />
-                        </svg>
-                        <span>Terug</span>
-                    </button>
-                    <div class="header-title">
-                        <h1 id="customer-header-title"></h1>
-                        <p>Onderhoudsinformatie en geschiedenis</p>
-                    </div>
-                </div>
-                <button class="btn btn-outline" id="customer-logout">
-                    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
-                    </svg>
-                    <span>Uitloggen</span>
-                </button>
-            </div>
-        </header>
-
-        <main class="dashboard-main">
-            <div class="customer-grid">
-                <div class="profile-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Klantprofiel</h2>
-                        </div>
-                        <div class="card-content">
-                            <div class="profile-header">
-                                <div class="profile-avatar">
-                                    <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                        <circle cx="12" cy="7" r="4" />
-                                    </svg>
-                                </div>
-                                <div class="profile-info">
-                                    <p id="profile-name"></p>
-                                    <p id="profile-id"></p>
-                                </div>
+            <main class="dashboard-main">
+                <div class="customer-grid">
+                    <div class="profile-section">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Klantprofiel</h2>
                             </div>
-
-                            <div class="separator"></div>
-
-                            <div class="contact-details">
-                                <div class="contact-item">
-                                    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <path
-                                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                                        <polyline points="22,6 12,13 2,6" />
-                                    </svg>
-                                    <div class="contact-item-content">
-                                        <p>Email</p>
-                                        <p id="profile-email"></p>
-                                    </div>
-                                </div>
-
-                                <div class="contact-item">
-                                    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <path
-                                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                                    </svg>
-                                    <div class="contact-item-content">
-                                        <p>Telefoon</p>
-                                        <p id="profile-phone"></p>
-                                    </div>
-                                </div>
-
-                                <div class="contact-item">
-                                    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    <div class="contact-item-content">
-                                        <p>Adres</p>
-                                        <p id="profile-address"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Onderhoudsschema</h2>
-                        </div>
-                        <div class="card-content">
-                            <div class="schedule-cards">
-                                <div class="schedule-card schedule-card-blue">
-                                    <div class="schedule-card-header">
-                                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2">
-                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                                            <line x1="16" y1="2" x2="16" y2="6" />
-                                            <line x1="8" y1="2" x2="8" y2="6" />
-                                            <line x1="3" y1="10" x2="21" y2="10" />
+                            <div class="card-content">
+                                <div class="profile-header">
+                                    <div class="profile-avatar">
+                                        <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
                                         </svg>
-                                        <p>Laatste Onderhoud</p>
                                     </div>
-                                    <p id="schedule-last"></p>
+                                    <div class="profile-info">
+                                        <p id="profile-name"></p>
+                                        <p id="profile-id"></p>
+                                    </div>
                                 </div>
 
-                                <div class="schedule-card schedule-card-green">
-                                    <div class="schedule-card-header">
-                                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10" />
-                                            <polyline points="12 6 12 12 16 14" />
+                                <div class="separator"></div>
+
+                                <div class="contact-details">
+                                    <div class="contact-item">
+                                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                            <polyline points="22,6 12,13 2,6"/>
                                         </svg>
-                                        <p>Volgend Onderhoud</p>
+                                        <div class="contact-item-content">
+                                            <p>Email</p>
+                                            <p id="profile-email"></p>
+                                        </div>
                                     </div>
-                                    <p id="schedule-next"></p>
+
+                                    <div class="contact-item">
+                                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                        </svg>
+                                        <div class="contact-item-content">
+                                            <p>Telefoon</p>
+                                            <p id="profile-phone"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="contact-item">
+                                        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                            <circle cx="12" cy="10" r="3"/>
+                                        </svg>
+                                        <div class="contact-item-content">
+                                            <p>Adres</p>
+                                            <p id="profile-address"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Onderhoudsschema</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="schedule-cards">
+                                    <div class="schedule-card schedule-card-blue">
+                                        <div class="schedule-card-header">
+                                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                                <line x1="3" y1="10" x2="21" y2="10"/>
+                                            </svg>
+                                            <p>Laatste Onderhoud</p>
+                                        </div>
+                                        <p id="schedule-last"></p>
+                                    </div>
+
+                                    <div class="schedule-card schedule-card-green">
+                                        <div class="schedule-card-header">
+                                            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="12" cy="12" r="10"/>
+                                                <polyline points="12 6 12 12 16 14"/>
+                                            </svg>
+                                            <p>Volgend Onderhoud</p>
+                                        </div>
+                                        <p id="schedule-next"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="maintenance-section">
-                    <div class="card hidden" id="add-maintenance-card">
-                        <div class="card-header">
-                            <h2 class="card-title">Nieuw Onderhoudsrecord Toevoegen</h2>
-                            <p class="card-description">Voeg een nieuwe onderhoudsactiviteit toe</p>
+                    <div class="maintenance-section">
+                        <div class="card hidden" id="add-maintenance-card">
+                            <div class="card-header">
+                                <h2 class="card-title">Nieuw Onderhoudsrecord Toevoegen</h2>
+                                <p class="card-description">Voeg een nieuwe onderhoudsactiviteit toe</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="maintenance-form">
+                                    <div class="form-group">
+                                        <label class="form-label" for="maint-description">Omschrijving</label>
+                                        <input class="form-input" type="text" id="maint-description" placeholder="bijv. Jaarlijkse service" required />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="maint-notes">Notities</label>
+                                        <textarea class="form-textarea" id="maint-notes" placeholder="Voer aanvullende details in..." required></textarea>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-full">Onderhoud Toevoegen</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="card-content">
-                            <form id="maintenance-form">
-                                <div class="form-group">
-                                    <label class="form-label" for="maint-description">Omschrijving</label>
-                                    <input class="form-input" type="text" id="maint-description"
-                                        placeholder="bijv. Jaarlijkse service" required />
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="form-label" for="maint-notes">Notities</label>
-                                    <textarea class="form-textarea" id="maint-notes"
-                                        placeholder="Voer aanvullende details in..." required></textarea>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary btn-full">Onderhoud Toevoegen</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Onderhoudsgeschiedenis</h2>
-                            <p class="card-description" id="history-description"></p>
-                        </div>
-                        <div class="card-content">
-                            <div class="maintenance-list" id="maintenance-history"></div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Onderhoudsgeschiedenis</h2>
+                                <p class="card-description" id="history-description"></p>
+                            </div>
+                            <div class="card-content">
+                                <div class="maintenance-list" id="maintenance-history"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
-    </div>
+            </main>
+        </div>
+    </template>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
 </body>
-
 </html>
